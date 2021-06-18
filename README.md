@@ -26,7 +26,8 @@ Next, create `.env` files in both the `/client` and `/server` directories and fo
 # /server/.env
 CLIENT_ID={Your app Client ID}
 CLIENT_SECRET={Your app Client Secret}
-PORT={Which port the server will listen to}(Default 3001)(Optional)
+PORT={Which port the server will listen to} (Optional) [Default: 3001]
+REDIRECT_URI={Where Spotify will redirect to after logging in} (Optional) [Default: https://localhost:3000]
 ```
 
 ```
