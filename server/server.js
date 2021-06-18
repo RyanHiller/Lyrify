@@ -21,15 +21,37 @@ app.post('/login', (req, res) => {
     .authorizationCodeGrant(code)
     .then((data) => {
       res.json({
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token,
-        expiresIn: data.body.expires_in,
+        accessToken: data.body['access_token'],
+        refreshToken: data.body['refresh_token'],
+        expiresIn: data.body['expires_in'],
       })
 
       console.log('User logged in')
     })
     .catch((err) => {
-      console.log(err)
+      console.log('LOGIN ERROR - ', err)
+      res.sendStatus(400)
+    })
+})
+
+// Handle refreshing access token while logged in
+app.post('/refresh', (req, res) => {
+  const refreshToken = req.body.refreshToken
+  const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    redirectUri: 'http://localhost:3000',
+    refreshToken,
+  })
+
+  spotifyApi
+    .refreshAccessToken()
+    .then((data) => {
+      res.json({ accessToken: data.body.accessToken, expiresIn: data.body.expiresIn })
+      console.log('Access token refreshed')
+    })
+    .catch((err) => {
+      console.log('REFRESH TOKEN ERROR - ', err)
       res.sendStatus(400)
     })
 })

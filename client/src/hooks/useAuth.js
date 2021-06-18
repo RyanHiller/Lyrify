@@ -19,4 +19,20 @@ export default function useAuth(code) {
         console.log(err)
       })
   }, [code])
+
+  useEffect(() => {
+    if (!refreshToken || !expiresIn) return
+
+    const interval = setInterval(() => {
+      axios.post('http://localhost:3001/refresh', { refreshToken }).then((res) => {
+        setAccessToken(res.data.accessToken)
+        setExpiresIn(res.data.expiresIn)
+      })
+    }, (expiresIn - 60) * 1000)
+
+    //Ensures interval is cleared in case token expires
+    return () => clearInterval(interval)
+  }, [refreshToken, expiresIn])
+
+  return accessToken
 }
