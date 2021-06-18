@@ -31,7 +31,7 @@ PORT={Which port the server will listen to}(Default 3001)(Optional)
 
 ```
 # /client/.env
-CLIENT_ID={Your app Client ID}
+REACT_APP_CLIENT_ID={Your app Client ID}
 ```
 
 Finally, run `npm start` in the `/client` directory, and in another terminal run `node server.js` or `nodemon server` from the `/server` directory.

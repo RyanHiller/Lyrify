@@ -44,7 +44,9 @@ export default function Dashboard({ code }) {
   return (
     <div className='flex flex-col items-center min-h-screen p-12 bg-green-500 text-center'>
       <h1 className='text-4xl mb-3'>Lyrify</h1>
-      <p className='w-1/4 m-6'>Test</p>
+      <p className='w-1/4 m-6'>
+        Lyrify lets you sing along to your favorite Spotify songs by giving you the lyrics!
+      </p>
       <input
         type='search'
         placeholder='Enter a track'
