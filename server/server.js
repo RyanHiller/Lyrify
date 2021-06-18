@@ -1,11 +1,14 @@
 const express = require('express')
 const cors = require('cors')
+
+const lyricsFinder = require('lyrics-finder')
 const SpotifyWebApi = require('spotify-web-api-node')
 
 const app = express()
 const port = process.env.PORT || 3001
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 require('dotenv').config()
 
 // Handle initial login authentication
@@ -54,6 +57,13 @@ app.post('/refresh', (req, res) => {
       console.log('REFRESH TOKEN ERROR - ', err)
       res.sendStatus(400)
     })
+})
+
+// Fetches lyrics for the client
+app.get('/lyrics', async (req, res) => {
+  console.log(req.query)
+  const lyrics = (await lyricsFinder(req.query.artist, req.query.track)) || 'No lyrics found! ):'
+  res.json({ lyrics: lyrics })
 })
 
 app.listen(port, () => {
