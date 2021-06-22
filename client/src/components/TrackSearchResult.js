@@ -7,7 +7,7 @@ export default function TrackSearchResult({ track, chooseTrack }) {
 
   return (
     <div
-      className='flex m-1 items-center cursor-pointer rounded bg-green-400 hover:bg-green-300'
+      className='flex my-1 items-center cursor-pointer rounded bg-spotify-dark hover:bg-spotify-light truncate w-full'
       onClick={handlePlay}
     >
       <img src={track.albumUrl} className='h-12 w-12' alt={track.title} />
