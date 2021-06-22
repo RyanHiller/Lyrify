@@ -71,24 +71,35 @@ export default function Dashboard({ code }) {
   }, [currentTrack])
 
   return (
-    <div className='flex flex-col items-center min-h-screen p-12 bg-green-500 text-center'>
+    <div className='flex flex-col items-center min-h-screen w-screen p-6 bg-gray-800 text-center text-white overflow-x-hidden'>
       <h1 className='text-4xl mb-3'>Lyrify</h1>
       <p className='m-6'>
-        Lyrify lets you sing along to your favorite Spotify songs by giving you the lyrics!
+        Lyrify lets you sing along to your favorite Spotify songs by giving you the lyrics with the
+        music!
       </p>
+
+      {/* Search */}
       <input
         type='search'
         placeholder='Enter a track'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className='h-16 w-full px-4 bg-green-700 text-lg'
+        className='h-16 w-full md:w-1/2 px-4 bg-spotify text-lg placeholder-gray-100 rounded-sm'
       />
-      <div className='flex-grow mb-1 overflow-y-auto text-left w-11/12'>
+
+      {/* Search Results */}
+      <div className='flex-grow mt-4 mb-40 overflow-y-auto overflow-x-hidden text-left w-full md:w-1/2'>
         {searchResults.slice(0, 5).map((track) => {
           return <TrackSearchResult track={track} key={track.uri} chooseTrack={chooseTrack} />
         })}
-        {searchResults.length === 0 && <div className='text-center whitespace-pre'>{lyrics}</div>}
+
+        {/* Lyrics */}
+        {searchResults.length === 0 && (
+          <div className='text-center whitespace-pre-wrap w-full'>{lyrics}</div>
+        )}
       </div>
+
+      {/* Player */}
       <Player accessToken={accessToken} trackUri={currentTrack?.uri} />
     </div>
   )
